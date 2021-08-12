@@ -15,3 +15,4 @@ export { getCurrentAppInstance } from "./src/instance";
 export { emit, on } from "./src/event";
 export * from "./src/customFn";
 export * from "./src/http";
+export { RequestData } from "./types";

@@ -1,5 +1,6 @@
 import Router from "koa-router";
 import { Context, Next } from "koa";
+import { ParsedUrlQuery } from "querystring";
 export type MockApp = {
   mount: (port: string, hanlder?: Function) => void;
   unmount: (handler: Function) => void;
@@ -27,11 +28,22 @@ export interface RouterConfig {
   fail?: Record<string, any> | (() => Record<string, any>);
   customTransformer?: (data) => Record<string, any>;
 }
-export type Middlewares = "RouterLogger" | "BodyParser";
+export type Middlewares = "RouterLogger" | "BodyParser" | "Cors";
 export interface BuiltinMiddlewares {
   name: Middlewares;
   handler: (ctx: Context, next?: Next) => void | Promise<void>;
 }
 export interface MockConfig {
   middlewares?: Middlewares[];
+}
+export interface RequestData {
+  method: string;
+  url: string;
+  header: {
+    cookie: string;
+    host: string;
+  };
+  query: ParsedUrlQuery;
+  params: Record<string, any>;
+  body: Record<string, any>;
 }

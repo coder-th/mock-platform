@@ -8,7 +8,9 @@ export function setupRouterLogger(): BuiltinMiddlewares {
       const req = ctx.request;
       logMsg(
         "success",
-        `当前的请求信息:method => ${req.method},url => ${req.url}`
+        `当前的请求信息:method => ${req.method},url => ${
+          req.url
+        },请求时间 => ${new Date()}`
       );
       await next();
     },
