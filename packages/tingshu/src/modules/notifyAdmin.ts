@@ -1,28 +1,17 @@
-import Mock from "mockjs";
+import { mock, mockArray } from "@qy-mock/core";
 export function addNotify() {
   return true;
 }
 export function notifyList() {
-  const data = [
+  let data = mockArray(
     {
-      publish_time: "2020-07-11",
-      content: Mock.mock("@cparagraph()"),
-      rule_type: 1,
-      id: 1,
+      publish_time: "@date('yyyy-MM-dd')",
+      content: mock("@cparagraph()"),
+      "rule_type|1-3": 1,
+      id: "@id",
     },
-    {
-      publish_time: "2020-07-16",
-      content: Mock.mock("@cparagraph()"),
-      rule_type: 2,
-      id: 2,
-    },
-    {
-      publish_time: "2020-04-08",
-      content: Mock.mock("@cparagraph()"),
-      rule_type: 3,
-      id: 3,
-    },
-  ];
+    3
+  );
   return {
     data,
   };

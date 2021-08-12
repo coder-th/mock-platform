@@ -383,6 +383,17 @@ import { mock } from "@qy-mock/core";
 mock("@cname"); //"杨平"
 ```
 
+#### `mockArray`
+
+描述： 根据规则`mock`出一个对应长度的数组
+
+示例:
+
+```typescript
+import { mockArray } from "@qy-mock/core";
+mockArray("@cname", 3); //["杨平","千云","天衡"]
+```
+
 #### `编写一个Mock模块`
 
 框架内部帮你写好了五个请求，分别是`Get`,`Post`,`Delete`,`Put`,`Options`，使用方式一样的。接下来编写一个示例

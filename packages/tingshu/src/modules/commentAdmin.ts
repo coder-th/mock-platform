@@ -1,4 +1,4 @@
-import Mock from "mockjs";
+import { mock, mockArray } from "@qy-mock/core";
 /**
  * 删除评论
  * @param {*} reqData
@@ -13,34 +13,32 @@ export function delComment(reqData) {
  * @returns
  */
 export function getAlbumCommentList(reqData) {
-  var data = [];
   const pageindex = reqData.pageindex || 10;
-  for (var i = 0; i <= pageindex; i++) {
-    const demoResponse = {
-      avatar: Mock.mock("@image('100x100')"),
-      comment: Mock.mock("@cparagraph()"),
-      id: Mock.mock("@increment()"),
-      nickName: Mock.mock("@cname"),
-    };
-    const demo = {
-      avatar: Mock.mock("@image('50x50')"),
-      comment: Mock.mock("@cparagraph()"),
-      comment_id: Mock.mock("@increment()"),
-      create_time: Math.floor(
-        new Date(Mock.mock("@datetime")).getTime() / 1000
-      ),
-      nickName: Mock.mock("@cname"),
-      uid: Mock.mock("@increment()"),
-      response: new Array(4).fill(demoResponse),
-    };
-    data.push(demo);
-  }
   // 总数
   const count = 56;
   const totalpage = Math.floor(count / pageindex) + 1;
+  const data = mockArray(
+    mock({
+      avatar: "@image('50x50')",
+      comment: "@cparagraph()",
+      comment_id: "@increment()",
+      create_time: Math.floor(new Date(mock("@datetime()")).getTime() / 1000),
+      nickName: "@cname()",
+      uid: "@increment()",
+      response: mockArray(
+        {
+          avatar: "@image('100x100')",
+          comment: "@cparagraph()",
+          id: "@increment()",
+          nickName: "@cname",
+        },
+        mock("@integer(1,6)")
+      ),
+    }),
+    pageindex
+  );
   return {
-    resultCode: 1,
-    data: data,
+    data,
     count,
     totalpage,
   };
