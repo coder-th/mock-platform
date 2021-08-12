@@ -1,4 +1,4 @@
 import { createApp, inject, provide, emit, on, Get, Post } from "@qy-mock/core";
-const { app, mockApp } = createApp("tingshu");
-import TestRouter from "./test";
-mockApp.registerRouter(TestRouter).mount("23331");
+const { app, mockApp } = createApp("apiV3/audio2");
+import { AdminRouter } from "./src/router";
+mockApp.registerRouter([AdminRouter]).mount("40003");
