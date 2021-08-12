@@ -1,0 +1,23 @@
+{
+  "name": "@qy-mock/yuetu",
+  "version": "0.0.0",
+  "description": "阅图使用的mock包",
+  "keywords": [
+    "阅图"
+  ],
+  "author": "天衡 <13265317640@163.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "index.ts",
+  "publishConfig": {
+    "registry": "https://registry.yarnpkg.com"
+  },
+  "scripts": {
+    "start": "nodemon -e ts --exec ts-node index.ts"
+  },
+  "dependencies": {
+    "@qy-mock/core": "^0.0.0",
+    "ts-node": "^10.2.0",
+    "typescript": "^4.3.5"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "@qy-mock/shared",
+  "version": "1.0.0",
+  "description": "utils",
+  "author": "天衡 <13265317640@163.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "index.ts",
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.yarnpkg.com"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "ts-node": "^10.2.0",
+    "typescript": "^4.3.5"
+  }
+}
