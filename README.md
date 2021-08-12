@@ -372,12 +372,23 @@ mockApp.setBaseResponse({
 })
 ```
 
+#### `mock`
+
+框架内部集成了`MockJs`,使用者只需要调用就可以正常使用 mock 环境了
+
+示例
+
+```typescript
+import { mock } from "@qy-mock/core";
+mock("@cname"); //"杨平"
+```
+
 #### `编写一个Mock模块`
 
 框架内部帮你写好了五个请求，分别是`Get`,`Post`,`Delete`,`Put`,`Options`，使用方式一样的。接下来编写一个示例
 
 ```typescript
-import { Get, Post } from "../core";
+import { Get, Post, mock } from "../core";
 
 class TestRouter {
   @Get("/mock/:id")
@@ -385,7 +396,7 @@ class TestRouter {
     // req框架帮你获取的对应数据
     return {
       data: {
-        name: "qianyun",
+        name: mock("@cname"),
       },
       resultCode: 1,
     };
@@ -394,7 +405,7 @@ class TestRouter {
   postComment(reqData) {
     return {
       data: {
-        name: "qianyun",
+        name: mock("@cname"),
       },
       resultCode: 1,
     };

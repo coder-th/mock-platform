@@ -1,6 +1,7 @@
 import { getRequestInfo, deepMerge } from "@qy-mock/shared";
 import { getCurrentAppInstance } from "./instance";
 import { AccessMethod, RouterConfig } from "../types";
+import Mock from "mockjs";
 let baseResponseHandler: RouterConfig = {
   success: {
     msg: "success",
@@ -53,3 +54,6 @@ export const Post = createRouterFn("Post");
 export const Delete = createRouterFn("Delete");
 export const Put = createRouterFn("Put");
 export const Options = createRouterFn("Options");
+export const mock = (data: Record<string, any> | string) => {
+  return Mock.mock(data);
+};
