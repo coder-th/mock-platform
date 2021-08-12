@@ -54,6 +54,21 @@ export const Post = createRouterFn("Post");
 export const Delete = createRouterFn("Delete");
 export const Put = createRouterFn("Put");
 export const Options = createRouterFn("Options");
-export const mock = (data: Record<string, any> | string) => {
+export function mock<T extends Record<string, any> | string>(
+  data: T
+): T extends string ? any : T;
+export function mock(data) {
   return Mock.mock(data);
-};
+}
+export function mockArray<T extends Record<string, any> | string>(
+  data: T,
+  length: number
+): T extends string ? any[] : T[];
+export function mockArray(data, length) {
+  const mockItem = () => mock(data);
+  const mockData = [];
+  for (let index = 0; index < length; index++) {
+    mockData.push(mockItem());
+  }
+  return mockData;
+}
