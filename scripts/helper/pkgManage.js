@@ -1,13 +1,16 @@
-import fs from "fs-extra";
-import path from "path";
-import dotenv from "dotenv";
-import { ignorePkg } from "../contants";
-import { logMsg } from "./logMsg";
+const fs = require("fs-extra");
+const path = require("path");
+const dotenv = require("dotenv");
+const { ignorePkg } = require("../contants");
+const { logMsg } = require("./logMsg");
 function getCustomPkgs() {
   const envConfig = dotenv.config({
     path: path.resolve(__dirname, "../../.env"),
   }).parsed;
-  const mockConfig = envConfig.MOCK_PROJECT;
+  const mockConfig =
+    process.env.NODE_ENV === "development"
+      ? envConfig.MOCK_PROJECT
+      : envConfig.BUILD_PROJECT;
   if (!envConfig || !mockConfig) return;
   const formatConfig = /^\[.+\]$/.test(mockConfig)
     ? JSON.parse(mockConfig)
@@ -50,12 +53,20 @@ function getPkgName(dir) {
  * 获取最终的打包项目包配置
  * @returns
  */
-export function getFinalTargets() {
+function getFinalTargets() {
   const ignorePkgList = ignorePkg;
-  // getCustomPkgs();
   // 如果用户有配置打包的文件，那就按照用户的需求
   const finalPkgs =
     getCustomPkgs() ||
     allPkgs.filter((pkg) => !ignorePkgList.includes(getPkgName(pkg)));
   return finalPkgs.map((pkg) => getPkgName(pkg));
 }
+function getFinalTargetNames() {
+  const targets = getFinalTargets().map((target) => target.split("/")[1]);
+  return allPkgs.filter((pkgName) => targets.includes(pkgName));
+}
+module.exports = {
+  getFinalTargets,
+  getFinalTargetNames,
+  allPkgs,
+};

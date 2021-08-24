@@ -2,7 +2,7 @@ import Router from "koa-router";
 import { Context, Next } from "koa";
 import { ParsedUrlQuery } from "querystring";
 export type MockApp = {
-  mount: (port: string, hanlder?: Function) => void;
+  mount: (port: string | number, hanlder?: Function) => void;
   unmount: (handler: Function) => void;
   beforeRouterMounted: (handler: Function) => void;
   routerMounted: (handler: Function) => void;

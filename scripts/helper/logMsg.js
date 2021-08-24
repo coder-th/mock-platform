@@ -1,11 +1,11 @@
-import chalk from "chalk";
-import { processMsg } from "./utils";
+const chalk = require("chalk");
+const { processMsg } = require("./utils");
 /**
  * display info in terminal
  * @param {*} type
  * @param {*} msg
  */
-export function logMsg(type = "success", msg) {
+function logMsg(type = "success", msg) {
   msg = processMsg(msg);
   switch (type) {
     case "success":
@@ -19,3 +19,6 @@ export function logMsg(type = "success", msg) {
       break;
   }
 }
+module.exports = {
+  logMsg,
+};

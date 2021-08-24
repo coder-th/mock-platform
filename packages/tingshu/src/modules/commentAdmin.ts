@@ -1,4 +1,5 @@
 import { mock, mockArray } from "@qy-mock/core";
+import { getListParams } from "../helper";
 /**
  * 删除评论
  * @param {*} reqData
@@ -13,10 +14,7 @@ export function delComment(reqData) {
  * @returns
  */
 export function getAlbumCommentList(reqData) {
-  const pageindex = reqData.pageindex || 10;
-  // 总数
-  const count = 56;
-  const totalpage = Math.floor(count / pageindex) + 1;
+  const { pageindex, count, totalpage } = getListParams(reqData);
   const data = mockArray(
     mock({
       avatar: "@image('50x50')",

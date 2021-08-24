@@ -1,6 +1,6 @@
 import { logMsg } from "@qy-mock/shared";
 import { Context } from "koa";
-import { BuiltinMiddlewares } from "../../types";
+import { BuiltinMiddlewares } from "../types";
 export function setupRouterLogger(): BuiltinMiddlewares {
   return {
     name: "RouterLogger",

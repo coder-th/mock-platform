@@ -1,21 +1,12 @@
 {
-  "name": "@qy-mock/tingshu",
-  "version": "0.0.0",
-  "description": "听书使用的mock包",
-  "author": "天衡 <13265317640@163.com>",
-  "homepage": "",
-  "license": "ISC",
+  "name": "@qy-mock/miku",
   "main": "index.ts",
-  "publishConfig": {
-    "registry": "https://registry.yarnpkg.com"
-  },
   "scripts": {
     "start": "nodemon -e ts --exec ts-node index.ts"
   },
   "dependencies": {
     "@qy-mock/core": "^0.0.0",
     "@qy-mock/shared": "^1.0.0",
-    "glob": "^7.1.7",
     "ts-node": "^10.2.0",
     "typescript": "^4.3.5"
   },

@@ -5,7 +5,7 @@ export function getNotify() {
     data: mock({
       id: "@id",
       "type|1-3": 1,
-      content: "@cparagraph()",
+      content: "部分音频暂不可用，请稍后重新打开小程序",
       publish_time: "@date('yyyy-MM-dd')",
     }),
   };

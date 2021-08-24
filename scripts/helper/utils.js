@@ -1,6 +1,10 @@
-import execa from "execa";
-import { getFinalTargets } from "./helper/pkgManage";
-
+const path = require("path");
+function isObject(target) {
+  return target !== null && typeof target === "object";
+}
+function processMsg(msg) {
+  return isObject(msg) ? JSON.stringify(msg) : msg;
+}
 /**
  * 多进程开启项目，每个进程对应一个项目
  * @param {*} maxConcurrency 当前系统的cpu最大核心数
@@ -8,7 +12,8 @@ import { getFinalTargets } from "./helper/pkgManage";
  * @param {*} iteratorFn
  * @returns
  */
-async function runParallel(maxConcurrency, source, iteratorFn) {
+async function runParallel(source, iteratorFn) {
+  const maxConcurrency = require("os").cpus().length;
   const ret = [];
   const executing = [];
   for (const item of source) {
@@ -26,14 +31,10 @@ async function runParallel(maxConcurrency, source, iteratorFn) {
   return Promise.all(ret);
 }
 
-async function setupChildProject(project) {
-  await execa("lerna", ["exec", "--scope", project, "--", "yarn", "start"], {
-    stdio: "inherit",
-  });
-}
-
-function run(targets) {
-  // 充分利用电脑cpu核心数
-  runParallel(require("os").cpus().length, targets, setupChildProject);
-}
-run(getFinalTargets());
+const resolve = (dir) => path.resolve(__dirname, dir);
+module.exports = {
+  isObject,
+  processMsg,
+  runParallel,
+  resolve,
+};

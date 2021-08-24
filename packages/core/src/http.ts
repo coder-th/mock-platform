@@ -1,7 +1,8 @@
-import { getRequestInfo, deepMerge } from "@qy-mock/shared";
+import { deepMerge } from "@qy-mock/shared";
 import { getCurrentAppInstance } from "./instance";
-import { AccessMethod, RouterConfig } from "../types";
+import { AccessMethod, RouterConfig } from "./types";
 import Mock from "mockjs";
+import { getRequestInfo } from "./utils";
 let baseResponseHandler: RouterConfig = {
   success: {
     msg: "success",
@@ -54,20 +55,18 @@ export const Post = createRouterFn("Post");
 export const Delete = createRouterFn("Delete");
 export const Put = createRouterFn("Put");
 export const Options = createRouterFn("Options");
-export function mock<T extends Record<string, any> | string>(
-  data: T
-): T extends string ? any : T;
+export function mock<T extends Record<string, any> | string>(data: T): any;
 export function mock(data) {
   return Mock.mock(data);
 }
 export function mockArray<T extends Record<string, any> | string>(
   data: T,
   length: number
-): T extends string ? any[] : T[];
+): any;
 export function mockArray(data, length) {
   const mockItem = () => mock(data);
   const mockData = [];
-  for (let index = 0; index < length; index++) {
+  for (let index = 1; index <= length; index++) {
     mockData.push(mockItem());
   }
   return mockData;

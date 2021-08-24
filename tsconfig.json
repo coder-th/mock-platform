@@ -8,6 +8,7 @@
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "target": "es6",
+    "moduleResolution": "node",
     "sourceMap": true,
     "lib": ["es6"],
     "outDir": "dist"
@@ -16,7 +17,13 @@
     "scripts/**/*.ts",
     "packages/**/*.ts",
     "packages/core/types/**/*.d.ts",
-    "packages/core/types/**/*.ts"
+    "packages/core/types/**/*.ts",
+    "scripts/dev.js",
+    "scripts/contants.js",
+    "scripts/helper/logMsg.js",
+    "scripts/helper/pkgManage.js",
+    "scripts/helper/utils.js",
+    "scripts/build.js"
   ],
   "exclude": ["node_modules"]
 }

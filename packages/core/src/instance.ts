@@ -1,6 +1,6 @@
 import { createInvokeHooks } from "./lifecycle";
 import { createRouter, registerRouter, setupRouter } from "./router";
-import { MockApp, MockConfig } from "../types";
+import { MockApp, MockConfig } from "./types";
 import { setupMiddleware } from "./middlewares";
 import { createRender } from "./render";
 import { removeAllEvents } from "./event";
@@ -30,7 +30,7 @@ export function createAppInstance(
     // 将子路由挂在到跟路由上
     setupRouter(app, instance);
     // 创建一个渲染器
-    const render = createRender(port, hanlder);
+    const render = createRender(String(port), hanlder);
     // 渲染到服务器上
     render(app, instance);
     // 路由挂载完成执行的生命周期
@@ -48,12 +48,12 @@ export function createAppInstance(
   // 设置基本的响应体
   instance.setBaseResponse = (config) => {
     setBaseResponse(config);
-    return instance
+    return instance;
   };
   // 注册路由
   instance.registerRouter = (routers) => {
     registerRouter(routers);
-    return instance
+    return instance;
   };
 
   return instance;

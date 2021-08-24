@@ -1,8 +1,12 @@
 import Router from "koa-router";
-import { MockApp, RouterContructor } from "../types";
+import { MockApp } from "./types";
 import { isArray, couldBeClass } from "@qy-mock/shared";
 export function createRouter(namespace: string, rootApp, instance) {
-  const router = new Router({ prefix: `/${namespace}` });
+  let config = {};
+  if (namespace) {
+    config = { prefix: namespace };
+  }
+  const router = new Router(config);
   rootApp._router.add(router);
   rootApp._childProjects.add(namespace);
   instance.router = router;

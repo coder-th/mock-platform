@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { MockApp } from "../types";
+import { MockApp } from "./types";
 /**
  * 路由注册之前想做的事情
  * @param {*} app
