@@ -29,6 +29,8 @@
   lerna bootstrap
   # 为每个子项目安装某个依赖
   lerna add -D ts-node
+  # 为某个项目安装某个依赖
+  lerna add <packageName> --scope=<projectName>
   # 执行所有项目的共同脚本（方式1）
   lerna run start
   # 执行所有项目的共同脚本（方式2）
@@ -50,6 +52,12 @@
 
   学习怎么使用直接参考[文档](https://koajs.com/)
 
+## 新增功能和解决的问题
+- Cli(脚手架)自动创建项目的功能
+- 修复路由模块化的问题(采用依赖收集和批量触发的方式可以参考vue3的`effect`收集和触发)
+- 修复打包后`koa`依赖自带的`socket问题`(使用rollup的`commonJs`,打包的时候重写`ts`的配置)
+
+
 ## 配置约定
 
 1. 每个子项目的名称需要是`@qy-mock/`开头的，比如你要创建`yuetu`项目，应该使用命令`lerna create @qy-mock/yuetu`。这样做的目的是为了方便项目管理，也是属于业界的规范。
@@ -70,77 +78,72 @@
    MOCK_PROJECT = ["@qy-mock/tingshu"];
    ```
 
+## 创建项目
+
+### 命令式创建
+
+如果您想要使用命令式创建项目，本项目已经为你准备好了一个脚本命令，您只要运行`yarn create:project`就会唤起脚手架，按照操作的提示输入你的期望，最终会帮你生成一个雏形的项目，默认已经帮你安装`@qy-mock/core`和`@qy-mock/shared`这两个包。然后您就可以自由发挥了
+
+### 手动创建
+
+当然，如果你想要自己创建项目也是可以的。您可以运行`lerna create <projectName>`进行创建，然后您自己改造好你想要的目录。
+
+## 项目构建
+
+本项目已经帮你写好了打包的配置和逻辑。您需要做的就是在根目录的`.env`文件中对应的配置项添加上你想要打包的项目就可以了。
+
+rollup打包后，你可以看到打包后的文件，直接在`node`环境执行就可以了，不用再去安装依赖什么的。如果在服务器，推荐使用`pm2`来执行，可以维持你的进程状态。
+
 ## 目录说明
 
-qy-mock
-
-├─ .env 设置环境变量
-
-├─ .gitignore
-
-├─ lerna.json lerna 管理文件
-
-├─ package.json
-
-├─ packages
-
-│ ├─ core
-
-│ │ ├─ index.ts
-
-│ │ ├─ package.json
-
-│ │ ├─ src
-
-│ │ │ ├─ customFn.ts 用户自定义函数
-
-│ │ │ ├─ event.ts 用户自定义事件
-
-│ │ │ ├─ globalData.ts 共享数据
-
-│ │ │ ├─ http.ts http 相关的方法
-
-│ │ │ ├─ instance.ts 应用创建相关
-
-│ │ │ ├─ lifecycle.ts 应用生命周期相关
-
-│ │ │ ├─ middlewares 应用相关的中间件
-
-│ │ │ │ ├─ BodyParser.ts
-
-│ │ │ │ ├─ index.ts
-
-│ │ │ │ └─ routerLog.ts
-
-│ │ │ ├─ render.ts 应用挂载相关文件
-
-│ │ │ └─ router.ts 路由创建，安装，注册等
-
-│ │ ├─ tsconfig.json
-
-│ │ ├─ types.ts
-
-│ │ └─ yarn.lock
-
-│ ├─ shared 共享工具函数包
-
-├─ scripts
-
-│ ├─ contants.ts
-
-│ ├─ dev.ts dev 环境的脚本文件
-
-│ └─ helper 相关的工具函数
-
-│ ├─ logMsg.ts
-
-│ ├─ pkgManage.ts
-
-│ └─ utils.ts
-
-├─ tsconfig.json
-
-└─ yarn.lock
+qy-mock                         
+├─ packages                    每一个项目的集中管理包 
+│  ├─ core                      核心包（为其他项目提供相关的api）            
+│  │  ├─ src                    
+│  │  │  ├─ middlewares         内置的中间件
+│  │  │  │  ├─ BodyParser.ts    post请求体数据的中间件
+│  │  │  │  ├─ Cors.ts          跨域处理中间件
+│  │  │  │  ├─ index.ts         
+│  │  │  │  └─ routerLog.ts     路由日志中间件
+│  │  │  ├─ customFn.ts         自定义函数相关的api
+│  │  │  ├─ event.ts            事件订阅通知的的相关api
+│  │  │  ├─ globalData.ts       全局数据共享的api
+│  │  │  ├─ http.ts             http请求的相关method
+│  │  │  ├─ instance.ts         当前应用实例相关的api
+│  │  │  ├─ lifecycle.ts        当前应用实例的生命周期
+│  │  │  ├─ render.ts           应用挂载
+│  │  │  ├─ routeEffect.ts      路由的收集和载入(做到懒加载)
+│  │  │  ├─ router.ts           路由处理相关的api
+│  │  │  ├─ types.ts            相关的类型定义
+│  │  │  └─ utils.ts            一些工具函数
+│  │  ├─ index.ts               应用核心包的主入口
+│  │  ├─ package.json           
+│  │  └─ yarn.lock              
+│  ├─ shared                    所有项目共享的工具函数                  
+│  │  ├─ src                    
+│  │  │  ├─ logMsg.ts           
+│  │  │  └─ utils.ts            
+│  │  ├─ index.ts               
+│  │  ├─ package.json           
+│  │  └─ yarn.lock              
+├─ scripts                      
+│  ├─ create                    脚手架创建项目的核心文件
+│  │  ├─ gen.js                 
+│  │  ├─ index.js               
+│  │  └─ manage.js              
+│  ├─ helper                    
+│  │  ├─ logMsg.js              日志打印的工具函数
+│  │  ├─ pkgManage.js           子项目的管理工具函数
+│  │  └─ utils.js               
+│  ├─ build.js                  打包的脚本文件
+│  ├─ contants.js               项目打包或者运行的配置文件
+│  └─ dev.js                    项目在开发环境时的脚本
+├─ README.md                    
+├─ lerna.json                   项目管理文件
+├─ package.json                 
+├─ rollup.config.js             打包配置文件
+├─ tsconfig.json                
+└─ yarn.lock                    
 
 ## 框架手册
 
@@ -322,6 +325,15 @@ setToken();
 import { removeCustomFn } from "@qy-mock/core";
 removeCustomFn("setToken");
 ```
+### 进阶
+
+#### `trackRoute`
+
+用户可以自己收集你想要的存储的路由，具体使用你可以看函数的定义。该函数用处适用于熟悉框架本身的人，一般用不到
+
+### `triggerRoute`
+
+用户可以自己触发更新已经存储的路由，具体使用你可以看函数的定义。该函数用处适用于熟悉框架本身的人，一般用不到
 
 ### 框架封装的 Http 模块
 
@@ -432,7 +444,7 @@ export default TestRouter;
 
 #### `registerRouter`
 
-描述： 当你写好了对应的路由模块，需要将它注册到框架中才能使用。
+描述： 当你写好了对应的路由模块，需要将它注册到框架中才能使用。理由：虽然内部已经帮你`track`过这个路由依赖，但是并没有进行`trigger`，如果不想通过`registerRouter`注册路由，也可以使用提供的`triggerRoute`触发你想要的路由
 
 使用:
 

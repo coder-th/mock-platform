@@ -3,11 +3,11 @@ import { generateResponse } from "./handler";
 
 export class AdminRouter {
   @Get("/get")
-  get(reqData: RequestData) {
+  getDataDemo(reqData: RequestData) {
     return generateResponse(reqData);
   }
   @Post("/post")
-  post(reqData: RequestData) {
+  postDataDemo(reqData: RequestData) {
     return generateResponse(reqData);
   }
 }

@@ -1,8 +1,10 @@
-import { deepMerge } from "@qy-mock/shared";
-import { getCurrentAppInstance } from "./instance";
-import { AccessMethod, RouterConfig } from "./types";
+import { deepMerge, logMsg } from "@qy-mock/shared";
+import { AccessMethod, RequestData, RouterConfig } from "./types";
 import Mock from "mockjs";
 import { getRequestInfo } from "./utils";
+import { router } from "./router";
+import { trackRoute } from "./routeEffect";
+
 let baseResponseHandler: RouterConfig = {
   success: {
     msg: "success",
@@ -18,18 +20,24 @@ let baseResponseHandler: RouterConfig = {
 function createRouterFn(method: AccessMethod) {
   return (url: string) => {
     return (target, propertyKey) => {
-      const router = getCurrentAppInstance().router;
-      router[method.toLocaleLowerCase()](url, async (ctx) => {
-        const res = target[propertyKey].call(target, getRequestInfo(ctx));
-        if (typeof res === "boolean" || typeof res === "number") {
-          // 说明用户想要返回最普通的数据
-          ctx.body = transformResData(res);
-        } else {
-          // 用户自己传了一个转换函数
-          ctx.body = baseResponseHandler.customTransformer
-            ? baseResponseHandler.customTransformer(res)
-            : res;
-        }
+      trackRoute(target.constructor.name, {
+        method,
+        url,
+        rawFn: target[propertyKey],
+        routeFn: (rawFn, url, method) => {
+          router[method.toLocaleLowerCase()](url, async (ctx) => {
+            const res = rawFn(getRequestInfo(ctx));
+            if (typeof res === "boolean" || typeof res === "number") {
+              // 说明用户想要返回最普通的数据
+              ctx.body = transformResData(res);
+            } else {
+              // 用户自己传了一个转换函数
+              ctx.body = baseResponseHandler.customTransformer
+                ? baseResponseHandler.customTransformer(res)
+                : res;
+            }
+          });
+        },
       });
     };
   };

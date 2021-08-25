@@ -1,12 +1,9 @@
 import Router from "koa-router";
 import { MockApp } from "./types";
 import { isArray, couldBeClass } from "@qy-mock/shared";
+import { triggerRoute } from "./routeEffect";
+export const router = new Router();
 export function createRouter(namespace: string, rootApp, instance) {
-  let config = {};
-  if (namespace) {
-    config = { prefix: namespace };
-  }
-  const router = new Router(config);
   rootApp._router.add(router);
   rootApp._childProjects.add(namespace);
   instance.router = router;
@@ -27,7 +24,7 @@ export function registerRouter(routers) {
   }
   routers.forEach((router) => {
     if (couldBeClass(router)) {
-      new router();
+      triggerRoute(router.name);
     }
   });
 }

@@ -2,8 +2,7 @@ import path from "path";
 import json from "@rollup/plugin-json";
 import ts from "rollup-plugin-typescript2";
 import resolvePlugin from "@rollup/plugin-node-resolve";
-import commonJs from "rollup-plugin-commonjs";
-import { babel } from "@rollup/plugin-babel";
+import commonJs from "@rollup/plugin-commonjs";
 // 找到  packages目录，
 const packagesDir = path.resolve(__dirname, "packages");
 // 找到当前要打包的包
@@ -45,7 +44,7 @@ function createConfig(format, outputOptions = {}) {
   return {
     input: resolve("index.ts"),
     output: { ...createOutputConfig(format), ...outputOptions },
-    external: [...["koa"]],
+    // external: [...["koa"]],
     plugins: [
       resolvePlugin(),
       json(),
@@ -54,15 +53,11 @@ function createConfig(format, outputOptions = {}) {
         tsconfigOverride: { compilerOptions: { module: "es2015" } },
       }),
       commonJs(),
-      babel({ babelHelpers: "bundled" }),
     ],
     onwarn: function (message) {
       if (/Use of eval is strongly discouraged/.test(message)) {
         return;
       }
-    },
-    treeshake: {
-      moduleSideEffects: false,
     },
   };
 }

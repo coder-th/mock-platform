@@ -10,7 +10,6 @@ const targetDirs = getFinalTargetNames();
  * @param target
  */
 async function build(target) {
-  console.log("target", target);
   const pkgDir = path.resolve(`packages/${target}`);
   const pkg = require(`${pkgDir}/package.json`);
   const env = pkg.buildOptions && pkg.buildOptions.env;

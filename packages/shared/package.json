@@ -15,11 +15,7 @@
   "publishConfig": {
     "registry": "https://registry.yarnpkg.com"
   },
-  "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
-  },
   "dependencies": {
-    "@qy-mock/core": "^0.0.0",
     "ts-node": "^10.2.0",
     "typescript": "^4.3.5"
   }
