@@ -1,14 +1,20 @@
-# 千云内部 Mock 平台
+<div align="center"> 
+	<img alt="tianheng" width="200" height="200" src="https://raw.githubusercontent.com/coder-th/static/master/dynamic-avatar-1.svg" /><br/><br/>
+	<br/>
+  <h1 align="center">Mock平台</h1>
+  <br>
+</div>
+## 技术栈
+[![](https://img.shields.io/github/stars/koajs/koa?color=rgb(46,190,50)&label=koa)](https://github.com/koajs/koa)[![GitHub stars](https://img.shields.io/github/stars/lerna/lerna?color=green&label=Lerna)](https://github.com/lerna/lerna)[![GitHub stars](https://img.shields.io/github/stars/microsoft/TypeScript?color=blue&label=Typescript)](https://github.com/microsoft/TypeScript)[![GitHub stars](https://img.shields.io/github/stars/nuysoft/Mock?color=yellow&label=Mock)](https://github.com/nuysoft/Mock)
 
-[![](<https://img.shields.io/github/stars/koajs/koa?color=rgb(46,190,50)&label=koa>)](https://github.com/koajs/koa)[![GitHub stars](https://img.shields.io/github/stars/lerna/lerna?color=green&label=Lerna)](https://github.com/lerna/lerna)[![GitHub stars](https://img.shields.io/github/stars/microsoft/TypeScript?color=blue&label=Typescript)](https://github.com/microsoft/TypeScript)[![GitHub stars](https://img.shields.io/github/stars/nuysoft/Mock?color=yellow&label=Mock)](https://github.com/nuysoft/Mock)
 
 ## 前言
 
-项目诞生背景：由于千云后端使用的后端框架并不是一成不变的，以前的版本并不是按照现在通用的`Restful`风格去编写的，导致，前端想要编写`Mock`变得十分困难。虽然在千云内部已经有`Eolinker`这样的平台可以提供 mock，但是始终在线上，而且由于之前的限制，mock 就无法进行编写。
+项目诞生背景：由于后端使用的后端框架并不是一成不变的，以前的版本并不是按照现在通用的`Restful`风格去编写的，导致，前端想要编写`Mock`变得十分困难。虽然在内部已经有`Eolinker`这样的平台可以提供 mock，但是始终在线上，而且由于之前的限制，mock 就无法进行编写。
 
-所以为了兼容，新旧项目，我们设想了一种情景，加入我有一个环境，可以让我自由编写，在每个不需要管理常用的中间件？我不用管理项目环境变量？能够跟`Eoliner`或者`Postman`一样拥有全局的前置或者后置脚本?能够，自由开启或者同时开启某些项目？
+1所以为了兼容，新旧项目，我们设想了一种情景，加入我有一个环境，可以让我自由编写，在每个不需要管理常用的中间件？我不用管理项目环境变量？能够跟`Eoliner`或者`Postman`一样拥有全局的前置或者后置脚本?能够，自由开启或者同时开启某些项目？
 
-在这样一系列的需求下，我们团队开发了一款适用于千云内部框架的 Mock 框架。注意，由于本项目是属于个人项目探索，所以，后期的使用者，可酌情考虑自身需求，决定是否使用，这里不做强制性使用。
+在这样一系列的需求下，我开发了一款适用于内部框架的 Mock 框架。注意，由于本项目是属于个人项目探索，所以，后期的使用者，可酌情考虑自身需求，决定是否使用。
 
 ## `预备知识`
 
@@ -67,8 +73,6 @@
 
 ## 起步
 
-1. 上千云公司码云账号上拉取该项目的代码
-
 2. 安装依赖，在根目录，运行`yarn bootstrap`
 
 3. 在根目录的`.env`文件中配置当前要启动的项目，项目名称使用你创建子项目的名称。比如
@@ -96,6 +100,7 @@ rollup打包后，你可以看到打包后的文件，直接在`node`环境执�
 
 ## 目录说明
 
+```
 qy-mock                         
 ├─ packages                    每一个项目的集中管理包 
 │  ├─ core                      核心包（为其他项目提供相关的api）            
@@ -143,7 +148,10 @@ qy-mock
 ├─ package.json                 
 ├─ rollup.config.js             打包配置文件
 ├─ tsconfig.json                
-└─ yarn.lock                    
+└─ yarn.lock             
+```
+
+​       
 
 ## 框架手册
 
@@ -403,7 +411,7 @@ mock("@cname"); //"杨平"
 
 ```typescript
 import { mockArray } from "@qy-mock/core";
-mockArray("@cname", 3); //["杨平","千云","天衡"]
+mockArray("@cname", 3); //["杨平","","天衡"]
 ```
 
 #### `编写一个Mock模块`
