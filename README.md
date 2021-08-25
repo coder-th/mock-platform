@@ -421,7 +421,7 @@ mockArray("@cname", 3); //["杨平","","天衡"]
 框架内部帮你写好了五个请求，分别是`Get`,`Post`,`Delete`,`Put`,`Options`，使用方式一样的。接下来编写一个示例
 
 ```typescript
-import { Get, Post, mock } from "../core";
+import { Get, Post, mock } from "@qy-mock/core";
 
 class TestRouter {
   @Get("/mock/:id")
