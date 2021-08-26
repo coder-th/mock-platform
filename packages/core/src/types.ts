@@ -24,9 +24,9 @@ export type MockApp = {
 export type AccessMethod = "Get" | "Post" | "Delete" | "Put" | "Options";
 export type RouterContructor = new (...args: any[]) => void;
 export interface RouterConfig {
-  success?: Record<string, any> | (() => Record<string, any>);
-  fail?: Record<string, any> | (() => Record<string, any>);
-  customTransformer?: (data) => Record<string, any>;
+  success?: Record<string, any> | ((data) => Record<string, any>);
+  fail?: Record<string, any> | ((data) => Record<string, any>);
+  customTransformer?: Record<string, any> | ((data) => Record<string, any>);
 }
 export type Middlewares = "RouterLogger" | "BodyParser" | "Cors";
 export interface BuiltinMiddlewares {

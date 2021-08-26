@@ -389,7 +389,7 @@ import {createApp} from "@qy-mock/core"
 const {mockApp} = createApp('tingshu')
 mockApp.setBaseResponse({
   success: {data:"qianyun",code: 1},
-  falil: ...,
+  fail: ...,
   customTransformer:...
 })
 ```
