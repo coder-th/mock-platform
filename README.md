@@ -7,14 +7,13 @@
 
 ## 技术栈
 
-[![](https://img.shields.io/github/stars/koajs/koa?color=rgb(46,190,50)&label=koa)](https://github.com/koajs/koa)[![GitHub stars](https://img.shields.io/github/stars/lerna/lerna?color=green&label=Lerna)](https://github.com/lerna/lerna)[![GitHub stars](https://img.shields.io/github/stars/microsoft/TypeScript?color=blue&label=Typescript)](https://github.com/microsoft/TypeScript)[![GitHub stars](https://img.shields.io/github/stars/nuysoft/Mock?color=yellow&label=Mock)](https://github.com/nuysoft/Mock)
-
+[![](<https://img.shields.io/github/stars/koajs/koa?color=rgb(46,190,50)&label=koa>)](https://github.com/koajs/koa)[![GitHub stars](https://img.shields.io/github/stars/lerna/lerna?color=green&label=Lerna)](https://github.com/lerna/lerna)[![GitHub stars](https://img.shields.io/github/stars/microsoft/TypeScript?color=blue&label=Typescript)](https://github.com/microsoft/TypeScript)[![GitHub stars](https://img.shields.io/github/stars/nuysoft/Mock?color=yellow&label=Mock)](https://github.com/nuysoft/Mock)
 
 ## 前言
 
 项目诞生背景：由于后端使用的后端框架并不是一成不变的，以前的版本并不是按照现在通用的`Restful`风格去编写的，导致，前端想要编写`Mock`变得十分困难。虽然在内部已经有`Eolinker`这样的平台可以提供 mock，但是始终在线上，而且由于之前的限制，mock 就无法进行编写。
 
-1所以为了兼容，新旧项目，我们设想了一种情景，加入我有一个环境，可以让我自由编写，在每个不需要管理常用的中间件？我不用管理项目环境变量？能够跟`Eoliner`或者`Postman`一样拥有全局的前置或者后置脚本?能够，自由开启或者同时开启某些项目？
+1 所以为了兼容，新旧项目，我们设想了一种情景，加入我有一个环境，可以让我自由编写，在每个不需要管理常用的中间件？我不用管理项目环境变量？能够跟`Eoliner`或者`Postman`一样拥有全局的前置或者后置脚本?能够，自由开启或者同时开启某些项目？
 
 在这样一系列的需求下，我开发了一款适用于内部框架的 Mock 框架。注意，由于本项目是属于个人项目探索，所以，后期的使用者，可酌情考虑自身需求，决定是否使用。
 
@@ -61,10 +60,10 @@
   学习怎么使用直接参考[文档](https://koajs.com/)
 
 ## 新增功能和解决的问题
-- Cli(脚手架)自动创建项目的功能
-- 修复路由模块化的问题(采用依赖收集和批量触发的方式可以参考vue3的`effect`收集和触发)
-- 修复打包后`koa`依赖自带的`socket问题`(使用rollup的`commonJs`,打包的时候重写`ts`的配置)
 
+- Cli(脚手架)自动创建项目的功能
+- 修复路由模块化的问题(采用依赖收集和批量触发的方式可以参考 vue3 的`effect`收集和触发)
+- 修复打包后`koa`依赖自带的`socket问题`(使用 rollup 的`commonJs`,打包的时候重写`ts`的配置)
 
 ## 配置约定
 
@@ -75,8 +74,8 @@
 
 ## 起步
 
-2. 安装依赖，在根目录，运行`yarn bootstrap`
-
+1. 确保您已经安装`lerna`，如果没有，请安装`yarn global add lerna`或者`npm install -g lerna`
+2. 在根目录，安装依赖`yarn install`，然后运行`yarn bootstrap`为每个子项目安装依赖
 3. 在根目录的`.env`文件中配置当前要启动的项目，项目名称使用你创建子项目的名称。比如
 
    ```js
@@ -88,7 +87,7 @@
 
 ### 命令式创建
 
-如果您想要使用命令式创建项目，本项目已经为你准备好了一个脚本命令，您只要运行`yarn create:project`就会唤起脚手架，按照操作的提示输入你的期望，最终会帮你生成一个雏形的项目，默认已经帮你安装`@qy-mock/core`和`@qy-mock/shared`这两个包。然后您就可以自由发挥了
+如果您想要使用命令式创建项目，本项目已经为你准备好了一个脚本命令，您只要运行`yarn create:project`就会唤起脚手架，按照操作的提示输入你的期望，最终会帮你生成一个雏形的项目，默认已经帮你安装`@qy-mock/core`和`@qy-mock/shared`这两个包。然后在`.env`文件配置就可以，开启项目了。然后您就可以自由发挥了。
 
 ### 手动创建
 
@@ -98,19 +97,19 @@
 
 本项目已经帮你写好了打包的配置和逻辑。您需要做的就是在根目录的`.env`文件中对应的配置项添加上你想要打包的项目就可以了。
 
-rollup打包后，你可以看到打包后的文件，直接在`node`环境执行就可以了，不用再去安装依赖什么的。如果在服务器，推荐使用`pm2`来执行，可以维持你的进程状态。
+rollup 打包后，你可以看到打包后的文件，直接在`node`环境执行就可以了，不用再去安装依赖什么的。如果在服务器，推荐使用`pm2`来执行，可以维持你的进程状态。
 
 ## 目录说明
 
 ```
-qy-mock                         
-├─ packages                    每一个项目的集中管理包 
-│  ├─ core                      核心包（为其他项目提供相关的api）            
-│  │  ├─ src                    
+qy-mock
+├─ packages                    每一个项目的集中管理包
+│  ├─ core                      核心包（为其他项目提供相关的api）
+│  │  ├─ src
 │  │  │  ├─ middlewares         内置的中间件
 │  │  │  │  ├─ BodyParser.ts    post请求体数据的中间件
 │  │  │  │  ├─ Cors.ts          跨域处理中间件
-│  │  │  │  ├─ index.ts         
+│  │  │  │  ├─ index.ts
 │  │  │  │  └─ routerLog.ts     路由日志中间件
 │  │  │  ├─ customFn.ts         自定义函数相关的api
 │  │  │  ├─ event.ts            事件订阅通知的的相关api
@@ -124,36 +123,36 @@ qy-mock
 │  │  │  ├─ types.ts            相关的类型定义
 │  │  │  └─ utils.ts            一些工具函数
 │  │  ├─ index.ts               应用核心包的主入口
-│  │  ├─ package.json           
-│  │  └─ yarn.lock              
-│  ├─ shared                    所有项目共享的工具函数                  
-│  │  ├─ src                    
-│  │  │  ├─ logMsg.ts           
-│  │  │  └─ utils.ts            
-│  │  ├─ index.ts               
-│  │  ├─ package.json           
-│  │  └─ yarn.lock              
-├─ scripts                      
+│  │  ├─ package.json
+│  │  └─ yarn.lock
+│  ├─ shared                    所有项目共享的工具函数
+│  │  ├─ src
+│  │  │  ├─ logMsg.ts
+│  │  │  └─ utils.ts
+│  │  ├─ index.ts
+│  │  ├─ package.json
+│  │  └─ yarn.lock
+├─ scripts
 │  ├─ create                    脚手架创建项目的核心文件
-│  │  ├─ gen.js                 
-│  │  ├─ index.js               
-│  │  └─ manage.js              
-│  ├─ helper                    
+│  │  ├─ gen.js
+│  │  ├─ index.js
+│  │  └─ manage.js
+│  ├─ helper
 │  │  ├─ logMsg.js              日志打印的工具函数
 │  │  ├─ pkgManage.js           子项目的管理工具函数
-│  │  └─ utils.js               
+│  │  └─ utils.js
 │  ├─ build.js                  打包的脚本文件
 │  ├─ contants.js               项目打包或者运行的配置文件
 │  └─ dev.js                    项目在开发环境时的脚本
-├─ README.md                    
+├─ README.md
 ├─ lerna.json                   项目管理文件
-├─ package.json                 
+├─ package.json
 ├─ rollup.config.js             打包配置文件
-├─ tsconfig.json                
-└─ yarn.lock             
+├─ tsconfig.json
+└─ yarn.lock
 ```
 
-​       
+​
 
 ## 框架手册
 
@@ -335,6 +334,7 @@ setToken();
 import { removeCustomFn } from "@qy-mock/core";
 removeCustomFn("setToken");
 ```
+
 ### 进阶
 
 #### `trackRoute`
