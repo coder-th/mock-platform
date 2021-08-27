@@ -26,6 +26,7 @@ export function trackRoute(className, route) {
     routeMap.set(className, (targetSet = new Set<IRoute>()));
   }
   targetSet.add(route);
+  routeMap.set(className, targetSet);
 }
 /**
  * 将路由载入子路由中

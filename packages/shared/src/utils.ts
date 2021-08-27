@@ -53,3 +53,11 @@ export function couldBeClass(obj, strict = true) {
 
   return false;
 }
+export function isFunction(target): target is Function {
+  return typeof target === "function";
+}
+
+export function isPlainObject(target) {
+  if (!target) return true;
+  return Object.keys(target).length === 0 && !isFunction(target);
+}
