@@ -5,6 +5,11 @@ const fs = require("fs-extra");
 const execa = require("execa");
 
 const targetDirs = getFinalTargetNames();
+
+function addPackageJson(pkgDir) {
+  fs.copyFileSync(`${pkgDir}/package.json`, `${pkgDir}/dist/package.json`);
+}
+
 /**
  * 打包的主流程
  * @param target
@@ -29,5 +34,7 @@ async function build(target) {
       stdio: "inherit",
     }
   );
+  // 添加package.json文件
+  addPackageJson(pkgDir);
 }
 runParallel(targetDirs, build);
